@@ -1,0 +1,27 @@
+<head>
+    <script src="https://kit.fontawesome.com/5a5d3d5682.js" crossorigin="anonymous"></script>
+</head>
+{% extends "layout.html" %}
+{% block content %}
+    <div class="text-center">
+        <div class="col mx-auto">
+            <h1>Find Your EV</h1>
+            <p class="lead" style="color:#FFFFFF">Helping you drive into the future</p>
+
+            <a class="btn btn-success btn-lg" href="{{ url_for('search') }}">Find Your EV</a>
+        </div>
+
+        <div class="fixed-bottom">
+            <!-- 😷 -->
+            <a href="https://github.com/henryinqz/FindYourEV">
+                <i class="fab fa-github fa-3x mt-2"></i> 
+            </a>
+            <p class="text-muted">
+                Created by <a href="https://github.com/henryinqz">Henry Wong</a>,
+                <a href="https://github.com/siddiqi-zuhair">Zuhair Siddiqi</a>, 
+                <a href="https://github.com/KieranHansen">Kieran Hansen</a> & 
+                <a href="https://github.com/MatthewKompel">Matthew Kompel</a> for QHacks 2021.
+            </p>
+        </div>
+    </div>
+{% endblock content %}

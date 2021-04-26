@@ -1,0 +1,168 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- <h1>Search page</h1> -->
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-3"><b>Search</b></legend>
+                <!-- Brand -->
+                <div class="form-group mb-3">
+                    {{ form.brand.label(class="form-control-label") }}
+                    {{ form.brand(class="form-control") }}
+                </div>
+
+                <!-- Min/max price -->
+                <div class="row form-group mb-3">
+                    <div class="col">
+                        {{ form.min_price.label(class="form-control-label") }}
+
+                        {% if form.min_price.errors %}
+                            {{ form.min_price(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.min_price.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.min_price(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        {{ form.max_price.label(class="form-control-label") }}
+
+                        {% if form.max_price.errors %}
+                            {{ form.max_price(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.max_price.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.max_price(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Min/max year -->
+                <div class="row form-group mb-3">
+                    <div class="col">
+                        {{ form.min_year.label(class="form-control-label") }}
+                        
+                        {% if form.min_year.errors %}
+                            {{ form.min_year(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.min_year.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.min_year(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        {{ form.max_year.label(class="form-control-label") }}
+
+                        {% if form.max_year.errors %}
+                            {{ form.max_year(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.max_year.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.max_year(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Min/max range -->
+                <div class="row form-group mb-3">
+                    <div class="col">
+                        {{ form.min_range.label(class="form-control-label") }}
+                        
+                        {% if form.min_range.errors %}
+                            {{ form.min_range(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.min_range.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.min_range(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        {{ form.max_range.label(class="form-control-label") }}
+
+                        {% if form.max_range.errors %}
+                            {{ form.max_range(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.max_range.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.max_range(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Drivetrain -->
+                <div class="form-group mb-3">
+                    {{ form.drivetrain.label(class="form-control-label") }}
+                    {{ form.drivetrain(class="form-control") }}
+                </div>
+
+                <!-- Form Factor -->
+                <div class="form-group mb-3">
+                    {{ form.form_factor.label(class="form-control-label") }}
+                    {{ form.form_factor(class="form-control") }}
+                </div>
+
+                <!-- EV Type -->
+                <div class="form-group mb-3">
+                    {{ form.ev_type.label(class="form-control-label") }}
+                    {{ form.ev_type(class="form-control") }}
+                </div>
+
+                <!-- Power -->
+                <div class="form-group mb-3">
+                    <div class="col">
+                        {{ form.min_power.label(class="form-control-label") }}
+                        
+                        {% if form.min_power.errors %}
+                            {{ form.min_power(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.min_power.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.min_power(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        {{ form.max_power.label(class="form-control-label") }}
+
+                        {% if form.max_power.errors %}
+                            {{ form.max_power(class="form-control-small is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.max_power.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.max_power(class="form-control-small") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </fieldset>
+            <!-- Submit button -->
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

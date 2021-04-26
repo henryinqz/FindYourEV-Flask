@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Results page</h1>
+    {% for car in cars %}    
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <h3><a class="article-title" href="#">{{car.brand}} {{car.model}}</a></h3>
+                    <!-- <a class="mr-2" href="#">author</a>
+                    <small class="text-muted">date posted</small> -->
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <p class="article-content"><b>Year:</b> {{car.year}}
+                            <b>Price:</b> ${{car.price}}
+                            <b>Type:</b> {{car.ev_type}}
+                            <b>Form Factor:</b> {{car.form_factor}}
+                            <b>Range:</b> {{car.range}} km
+                            <b>Power:</b> {{car.power}} HP
+                        </p>
+                    </div>
+                    <div class="col">
+                        <img class="float-right rounded h-100 w-100" src="{{ car.image }}">
+                    </div>
+                    <!-- url_for('static', filename='pics/' + car.image_file) -->
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
+
