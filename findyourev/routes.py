@@ -1,14 +1,10 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import SearchForm
+from flask import render_template, url_for, flash, redirect
+from findyourev import app
+from findyourev.forms import SearchForm
 
-import os
-import data
-from constants import *
-
-app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get("FINDYOUREV_SECRET_KEY")
-
-data.cars = []
+from findyourev.data import cars, car_data
+from findyourev.data_process import * # Import from findyourev.data?
+from findyourev.constants import *
 
 @app.route("/")
 @app.route("/home")
@@ -19,7 +15,7 @@ def home():
 def search():
     form = SearchForm()
     if form.validate_on_submit():
-        data.cars.clear() # Reset cars list
+        cars.clear() # Reset cars list
 
         # Load search query
         search = []
@@ -43,12 +39,12 @@ def search():
         search.append([POWER[CONSTANT], power]) # Power dict {MIN_POWER, MAX_POWER}
         
         # Get random search data, then send
-        search_data = data.search_data(data.car_data, search) # Car model names in list
-        random_search_data = data.get_data_from_model(data.car_data, data.get_random_cars_from_search_data(search_data, -1)) # Get all cars from search query 
+        car_search_data = search_data(car_data, search) # Car model names in list
+        random_search_data = get_data_from_model(car_data, get_random_cars_from_search_data(car_search_data, -1)) # Get all cars from search query 
         for key in random_search_data:
             new_car = random_search_data[key]
             new_car["model"] = key
-            data.cars.append(new_car)
+            cars.append(new_car)
 
         if len(random_search_data) > 0:
             flash(f"Queried {len(random_search_data)} cars!", "success")
@@ -60,10 +56,7 @@ def search():
 
 @app.route("/results")
 def results():
-    if data.cars == []:
+    if cars == []:
         flash("No cars found!", "danger")
         return redirect(url_for("search"))
-    return render_template("results.html", title="Results", cars=data.cars)
-
-if __name__ == "__main__":
-    app.run(debug=False, threaded=True)
+    return render_template("results.html", title="Results", cars=cars)

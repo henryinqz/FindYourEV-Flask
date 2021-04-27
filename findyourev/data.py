@@ -1,8 +1,9 @@
-from data_process import *
+from findyourev.data_process import *
 
 cars = []
-database = open("ev_database.csv", "r")
+database = open("findyourev/ev_database.csv", "r")
 car_data = clean_data(database)
+database.close()
 
 
 car_data_unique_vals = get_unique_data_values(car_data)

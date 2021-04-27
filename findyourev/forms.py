@@ -2,9 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import SelectField, SelectMultipleField, SubmitField, FloatField, BooleanField, ValidationError
 from wtforms.validators import InputRequired, NumberRange
 
-import data_process as dp
-import data
-from constants import *
+# import findyourev.data
+from findyourev.data import brands, drivetrains, form_factors, ev_types, prices, years, powers, range_capacities
+from findyourev.constants import *
 
 # Equivalents of wtforms.validators.EqualTo()
 class LessThanEqualTo(object):
@@ -72,12 +72,7 @@ class SearchForm(FlaskForm):
     # Brands
     brand = SelectMultipleField(
         "Brand", 
-        choices = [(_, _) for _ in data.brands]
-        # choices = [
-        #     ("Audi", "Audi"), 
-        #     ("Tesla", "Tesla"), 
-        #     ("Honda", "Honda")
-        # ]
+        choices = [(_, _) for _ in brands]
     )
 
     # Min/max price
@@ -88,7 +83,7 @@ class SearchForm(FlaskForm):
     )
     max_price = FloatField(
         "Max. Price", 
-        default = data.prices[MAX_PRICE],
+        default = prices[MAX_PRICE],
         validators = [InputRequired(), GreaterThanEqualTo('min_price'), NumberRange(min=0)]
     )
 
@@ -100,7 +95,7 @@ class SearchForm(FlaskForm):
     )
     max_year = FloatField(
         "Max. Year", 
-        default=data.years[MAX_YR],
+        default=years[MAX_YR],
         validators = [InputRequired(), GreaterThanEqualTo('min_year'), NumberRange(min=0)]
     )
     
@@ -112,13 +107,14 @@ class SearchForm(FlaskForm):
     )
     max_range = FloatField(
         "Max. Range", 
-        default=data.range_capacities[MAX_RANGE], 
+        default=range_capacities[MAX_RANGE], 
         validators = [InputRequired(), GreaterThanEqualTo('min_range'), NumberRange(min=0)]
     )
 
     # Drivetrain
     drivetrain = SelectMultipleField(
-        "Drivetrain", 
+        "Drivetrain",
+        # choices = [(_, _) for _ in drivetrains]
         choices=[
             ("AWD", "All Wheel Drive (AWD)"), 
             ("RWD", "Rear Wheel Drive (RWD)"), 
@@ -129,7 +125,7 @@ class SearchForm(FlaskForm):
     # Form factor
     form_factor = SelectMultipleField(
         "Form Factor", 
-        choices = [(_, _) for _ in data.form_factors]
+        choices = [(_, _) for _ in form_factors]
         # choices=[
         #     ("Compact", "Compact"),
         #     ("Hatchback", "Hatchback"),
@@ -148,6 +144,7 @@ class SearchForm(FlaskForm):
     # EV Type
     ev_type = SelectMultipleField(
         "Electric Type", 
+        # choices = [(_, _) for _ in ev_types]
         choices=[
             ("BEV", "Full Electric (BEV)"),
             ("PHEV", "Hybrid (PHEV)"),
@@ -163,7 +160,7 @@ class SearchForm(FlaskForm):
     )
     max_power = FloatField(
         "Max. Power", 
-        default=data.powers[MAX_POWER], 
+        default=powers[MAX_POWER], 
         validators = [InputRequired(), GreaterThanEqualTo('min_power'), NumberRange(min=0)]
     )
 

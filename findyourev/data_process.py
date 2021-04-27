@@ -1,6 +1,6 @@
 from typing import TextIO, List, Dict, Union
 import random
-from constants import *
+from findyourev.constants import *
 
 def clean_data(input_file: TextIO) -> Dict:
     input_file.readline().strip().split(",") # First row
