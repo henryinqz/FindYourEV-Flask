@@ -1,6 +1,6 @@
 # FindYourEV-Flask
 
-### https://findyourev-flask.herokuapp.com/
+### http://findyourev.online/ (or https://findyourev-flask.herokuapp.com/)
 
 Find your EV is the easiest way find to the most suitable electric car for you by searching and comparing vehicles to find the most relevant electric cars for you.
 
