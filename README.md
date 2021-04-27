@@ -1,7 +1,9 @@
 # FindYourEV-Flask
 
-### http://findyourev-flask.herokuapp.com/
+### https://findyourev-flask.herokuapp.com/
 
-Find your EV is the easiest way find to the most suitable electric car for you. By listening to you, Find your EV is able to search and compare the most relevant electric cars for you.
+Find your EV is the easiest way find to the most suitable electric car for you by searching and comparing vehicles to find the most relevant electric cars for you.
 
-Originally developed for [QHacks 2021](https://devpost.com/software/find-your-ev) by Henry Wong, Zuhair Siddiqi, Kieran Hansen, & Matthew Kompel. Ported to Flask.
+[Originally developed](https://github.com/henryinqz/FindYourEV) for [QHacks 2021](https://devpost.com/software/find-your-ev) by Henry Wong, Zuhair Siddiqi, Kieran Hansen, & Matthew Kompel. 
+
+Ported to Flask by Henry Wong.
