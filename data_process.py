@@ -226,22 +226,89 @@ def get_data_from_model(car_data: List[str], search_data: List[str]) -> Dict:
     return search_data_dict
 
 # ---
-def get_all_brands(car_data: Dict) ->  List[str]:
-    brands = []
+def get_unique_data_values(car_data: Dict) -> Dict:
+    '''
+    Return sorted all_unique_data = {
+        BRAND[CONSTANT]: ['Audi', ... , 'Volvo'],
+        YEAR[CONSTANT]: {MIN_YR: 0, MAX_YR: 1000000},
+        POWER[CONSTANT]: {MIN_POWER: 0, MAX_POWER: 1000},
+        DRIVETRAIN[CONSTANT]: ['AWD', ... , 'RWD'],
+        FORM_FACTOR[CONSTANT]: ['Compact', ... , 'Subcompact'],
+        PRICE[CONSTANT]: {MIN_PRICE: 0, MAX_PRICE: 1000},
+        EV_TYPE[CONSTANT]: ['BEV', ... , 'PHEV'],
+        RANGE_CAPACITY[CONSTANT]: {MIN_RANGE: 0, MAX_RANGE: 5000},
+    }
+    (note: no models)
+    '''
+    all_unique_data = {}
+    
+    brands, drivetrains, form_factors, ev_types = [], [], [], []
+    years = dict.fromkeys([MIN_YR, MAX_YR])
+    powers = dict.fromkeys([MIN_POWER, MAX_POWER])
+    prices = dict.fromkeys([MIN_PRICE, MAX_PRICE])
+    range_capacities = dict.fromkeys([MIN_RANGE, MAX_RANGE])
+
     for key in car_data:
+        # Brand
         brand = car_data[key][BRAND[CONSTANT]]
         if brand not in brands:
             brands.append(brand)
 
-    brands.sort()
-    return brands
+        # Drivetrain
+        drivetrain = car_data[key][DRIVETRAIN[CONSTANT]]
+        if drivetrain not in drivetrains:
+            drivetrains.append(drivetrain)
 
-def get_all_form_factors(car_data: Dict) ->  List[str]:
-    form_factors = []
-    for key in car_data:
+        # Form factor
         form_factor = car_data[key][FORM_FACTOR[CONSTANT]]
         if form_factor not in form_factors:
             form_factors.append(form_factor)
 
+        # EV Type
+        ev_type = car_data[key][EV_TYPE[CONSTANT]]
+        if ev_type not in ev_types:
+            ev_types.append(ev_type)
+
+        # Price {MIN_PRICE: 0, MAX_PRICE: 1000000}
+        price = car_data[key][PRICE[CONSTANT]]
+        if prices[MIN_PRICE] == None or prices[MIN_PRICE] > price:
+            prices[MIN_PRICE] = price
+        if prices[MAX_PRICE] == None or prices[MAX_PRICE] < price:
+            prices[MAX_PRICE] = price
+
+        # Year
+        year = car_data[key][YEAR[CONSTANT]]
+        if years[MIN_YR] == None or years[MIN_YR] > year:
+            years[MIN_YR] = year
+        if years[MAX_YR] == None or years[MAX_YR] < year:
+            years[MAX_YR] = year
+
+        # Power
+        power = car_data[key][POWER[CONSTANT]]
+        if powers[MIN_POWER] == None or powers[MIN_POWER] > power:
+            powers[MIN_POWER] = power
+        if powers[MAX_POWER] == None or powers[MAX_POWER] < power:
+            powers[MAX_POWER] = power
+
+        # Range
+        range_capacity = car_data[key][RANGE_CAPACITY[CONSTANT]]
+        if range_capacities[MIN_RANGE] == None or range_capacities[MIN_RANGE] > range_capacity:
+            range_capacities[MIN_RANGE] = range_capacity
+        if range_capacities[MAX_RANGE] == None or range_capacities[MAX_RANGE] < range_capacity:
+            range_capacities[MAX_RANGE] = range_capacity
+
+    brands.sort()
+    drivetrains.sort()
     form_factors.sort()
-    return form_factors
+    ev_types.sort()
+    
+    all_unique_data[BRAND[CONSTANT]] = brands
+    all_unique_data[DRIVETRAIN[CONSTANT]] = drivetrains
+    all_unique_data[FORM_FACTOR[CONSTANT]] = form_factors
+    all_unique_data[EV_TYPE[CONSTANT]] = ev_types
+    all_unique_data[PRICE[CONSTANT]] = prices
+    all_unique_data[YEAR[CONSTANT]] = years
+    all_unique_data[POWER[CONSTANT]] = powers
+    all_unique_data[RANGE_CAPACITY[CONSTANT]] = range_capacities
+
+    return all_unique_data

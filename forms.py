@@ -72,7 +72,7 @@ class SearchForm(FlaskForm):
     # Brands
     brand = SelectMultipleField(
         "Brand", 
-        choices = [(_, _) for _ in data.get_all_brands(data.car_data)]
+        choices = [(_, _) for _ in data.brands]
         # choices = [
         #     ("Audi", "Audi"), 
         #     ("Tesla", "Tesla"), 
@@ -88,7 +88,7 @@ class SearchForm(FlaskForm):
     )
     max_price = FloatField(
         "Max. Price", 
-        default = 1000000, 
+        default = data.prices[MAX_PRICE],
         validators = [InputRequired(), GreaterThanEqualTo('min_price'), NumberRange(min=0)]
     )
 
@@ -100,7 +100,7 @@ class SearchForm(FlaskForm):
     )
     max_year = FloatField(
         "Max. Year", 
-        default=2025,
+        default=data.years[MAX_YR],
         validators = [InputRequired(), GreaterThanEqualTo('min_year'), NumberRange(min=0)]
     )
     
@@ -112,7 +112,7 @@ class SearchForm(FlaskForm):
     )
     max_range = FloatField(
         "Max. Range", 
-        default=5000, 
+        default=data.range_capacities[MAX_RANGE], 
         validators = [InputRequired(), GreaterThanEqualTo('min_range'), NumberRange(min=0)]
     )
 
@@ -129,7 +129,7 @@ class SearchForm(FlaskForm):
     # Form factor
     form_factor = SelectMultipleField(
         "Form Factor", 
-        choices = [(_, _) for _ in data.get_all_form_factors(data.car_data)]
+        choices = [(_, _) for _ in data.form_factors]
         # choices=[
         #     ("Compact", "Compact"),
         #     ("Hatchback", "Hatchback"),
@@ -163,7 +163,7 @@ class SearchForm(FlaskForm):
     )
     max_power = FloatField(
         "Max. Power", 
-        default=1000, 
+        default=data.powers[MAX_POWER], 
         validators = [InputRequired(), GreaterThanEqualTo('min_power'), NumberRange(min=0)]
     )
 
