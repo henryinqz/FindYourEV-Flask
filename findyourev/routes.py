@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, session
 from findyourev import app
 from findyourev.forms import SearchForm
 
@@ -15,7 +15,11 @@ def home():
 def search():
     form = SearchForm()
     if form.validate_on_submit():
-        cars.clear() # Reset cars list
+        # Reset cars list
+        # cars.clear() # Reset cars list
+        if "cars" in session:
+            session["cars"].clear()
+        session["cars"] = []
 
         # Load search query
         search = []
@@ -44,7 +48,8 @@ def search():
         for key in random_search_data:
             new_car = random_search_data[key]
             new_car["model"] = key
-            cars.append(new_car)
+            # cars.append(new_car)
+            session["cars"].append(new_car)
 
         if len(random_search_data) > 0:
             flash(f"Queried {len(random_search_data)} cars!", "success")
@@ -56,7 +61,9 @@ def search():
 
 @app.route("/results")
 def results():
-    if cars == []:
+    # if cars == []:
+    if "cars" not in session:
         flash("No cars found!", "danger")
         return redirect(url_for("search"))
-    return render_template("results.html", title="Results", cars=cars)
+    # return render_template("results.html", title="Results", cars=cars)
+    return render_template("results.html", title="Results", cars=session["cars"])

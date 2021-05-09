@@ -1,6 +1,6 @@
 from findyourev.data_process import *
 
-cars = []
+# cars = []
 database = open("findyourev/ev_database.csv", "r")
 car_data = clean_data(database)
 database.close()
