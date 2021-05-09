@@ -146,9 +146,9 @@ class SearchForm(FlaskForm):
         "Electric Type", 
         # choices = [(_, _) for _ in ev_types]
         choices=[
-            ("BEV", "Full Electric (BEV)"),
-            ("PHEV", "Hybrid (PHEV)"),
-            ("HFCV", "Hydrogen (HFCV)")
+            ("BEV", "Battery Electric Vehicle (BEV)"),
+            ("PHEV", "Plug-in Hybrid Electric Vehicle (PHEV)"),
+            ("HFCV", "Hydrogen Fuel Cell Vehicle (HFCV)")
         ]
     )
 
