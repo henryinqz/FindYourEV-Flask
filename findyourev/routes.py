@@ -3,6 +3,7 @@ from findyourev import app
 from findyourev.forms import SearchForm
 
 from findyourev.data import cars, car_data
+# from findyourev.data import car_data
 from findyourev.data_process import * # Import from findyourev.data?
 from findyourev.constants import *
 
@@ -16,10 +17,10 @@ def search():
     form = SearchForm()
     if form.validate_on_submit():
         # Reset cars list
-        # cars.clear() # Reset cars list
-        if "cars" in session:
-            session["cars"].clear()
-        session["cars"] = []
+        cars.clear() # Reset cars list
+        # if "cars" in session:
+        #     session["cars"].clear()
+        # session["cars"] = []
 
         # Load search query
         search = []
@@ -48,8 +49,8 @@ def search():
         for key in random_search_data:
             new_car = random_search_data[key]
             new_car["model"] = key
-            # cars.append(new_car)
-            session["cars"].append(new_car)
+            cars.append(new_car)
+            # session["cars"].append(new_car)
 
         if len(random_search_data) > 0:
             flash(f"Queried {len(random_search_data)} cars!", "success")
@@ -61,9 +62,9 @@ def search():
 
 @app.route("/results")
 def results():
-    # if cars == []:
-    if "cars" not in session:
+    if cars == []:
+    # if "cars" not in session:
         flash("No cars found!", "danger")
         return redirect(url_for("search"))
-    # return render_template("results.html", title="Results", cars=cars)
-    return render_template("results.html", title="Results", cars=session["cars"])
+    return render_template("results.html", title="Results", cars=cars)
+    # return render_template("results.html", title="Results", cars=session["cars"])
